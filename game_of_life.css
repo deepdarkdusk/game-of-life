@@ -1,0 +1,70 @@
+body {
+	background-color: black;
+	font-family:      Arial, sans-serif;
+	font-size:        12px;
+}
+h1 {
+	color:            #a2a2a2;
+	margin:           0;
+	padding:          0;
+}
+h1 a {
+	color:            #a2a2a2;
+}
+.fields_game_img {
+	width:            10px;
+	height:           10px;
+	border-bottom:    1px solid black;
+	border-right:     1px solid black;
+}
+.fields_game_checked {
+	width:            10px;
+	height:           10px;
+	background-color: #aa0000;
+}
+.fields_game_unchecked {
+	width:            10px;
+	height:           10px;
+	background-color: #ffffff;
+}
+#game_panel {
+	border:           1px solid #44ff44;
+	padding:          5px;
+}
+#game_footer {
+	color:            #ffffff;
+	border:           1px solid #44ff44;
+	padding:          5px;
+}
+#game_footer a {
+	color:            #ffffff;
+}
+#game_panel span {
+	color:            #ffffff;
+	border:           1px solid #ff4444;
+	padding:          4px;
+	width:            100px;
+	background-color: #525252;
+	font-weight:      bold;
+}
+#game_panel table tr td {
+	color:            white;
+	font-size:        12px;
+}
+#game_panel input {
+	border:           1px solid #ff4444;
+	padding:          3px;
+	width:            100px;
+	background-color: #727272;
+	font-weight:      bold;
+}
+#game_panel input.right {
+	text-align:       right;
+}
+#game_panel input:hover {
+	border:           1px solid #ff4444;
+	background-color: #e2e2e2;
+}
+#game {
+	font-size:        16px;
+}

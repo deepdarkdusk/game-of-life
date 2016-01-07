@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="game_of_life.css" type="text/css" media="all">
+		<script type="text/javascript" src="game_of_life.levels.js"></script>
+		<script type="text/javascript" src="game_of_life.js"></script>
+	</head>
+	<body onload="load_level(1);">
+		<div id="game_panel" align="left">
+			<h1><a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Game of Life (click for more informations)</a> BETA</h1>
+			<br />
+			<!--<span style="margin: 10px;">THE LEVELS ARE JUST FOR TESTING. ONCE THEY ARE DONE THIS PICE OF SOFTWARE WILL LOOSE BETA STATE</span><br />
+			<br />-->
+
+			<table>
+				<tr>
+					<td>
+						Round-Time:
+					</td>
+					<td>
+						Living Cells:
+					</td>
+					<td>
+						Rounds:
+					</td>
+					<td>
+						Switch Mode to:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="game_panel_timeout" class="right" value="100" />
+					</td>
+					<td>
+						<input type="text" id="game_panel_living_cells" class="right" value="0" readonly="readonly" />
+					</td>
+					<td>
+						<input type="text" id="game_panel_rounds" class="right" value="100" />
+					</td>
+					<td>
+						<input id="game_panel_switch_mode" onclick="javascript: switch_mode( this );" value="sandbox" type="submit">
+					</td>
+				</tr>
+			</table>
+			<table style="display: none;" id="game_panel_menu_sandbox">
+				<tr>
+					<td>
+						Width:
+					</td>
+					<td>
+						Height:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="game_panel_width" class="right" value="20" />
+					</td>
+					<td>
+						<input type="text" id="game_panel_height" class="right" value="20" />
+					</td>
+					<td>
+						<input onclick="javascript:  document.getElementById('game').appendChild( draw_field( 'game', document.getElementById('game_panel_width').value, document.getElementById('game_panel_height').value ) );" value="resize" type="submit">
+					</td>
+					<td>
+						<input type="submit" value="randomize" onclick="randomize_cells('game');" />
+					</td>
+					<td>
+						<input type="submit" value="reset" onclick="reset_cells('game');" />
+					</td>
+					<td>
+						<input type="submit" value="log coords" onclick="alert( get_living_cell_coordinates() );" />
+					</td>
+					<td>
+						<input id="game_panel_start" onclick="javascript: step_loop( 'game', document.getElementById('game_panel_timeout').value, document.getElementById('game_panel_rounds').value );" value="start" type="submit">
+					</td>
+				</tr>
+			</table>
+			<table id="game_panel_menu_riddle">
+				<tr>
+					<td>
+						Level:
+					</td>
+					<td>
+						Cells to place:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="game_panel_active_level" class="right" value="0" readonly="readonly" />
+					</td>
+					<td>
+						<input type="text" id="game_panel_clicks" class="right" value="0" readonly="readonly" />
+					</td>
+					<td>
+						<span>Level Goal: <a id="game_panel_level_goal">-</a></span>
+					</td>
+				</tr>
+
+			</table>
+		</div>
+		<br />
+		<h1 id="game_message">initializing ...</h1>
+		<br />
+		<div id="game" align="center"><span style="color: #ffffff">javascript required<br /><br />Sorry, no Internet Explorer support at the moment, maybe you would like to check out firefox</span><br /><br /><br /></div>
+		<br />
+		<div id="game_footer" align="center">
+			Programming and Design by Lorenz Werner / <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Original Idear John Horton Conway</a><br />
+			<small>Feel free to use any code from this game in any form, but mention my name in the sources and maybe somewhere more public.</small>
+		</div>
+	</body>
+</html>
