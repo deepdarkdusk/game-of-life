@@ -4,9 +4,49 @@
 		<script type="text/javascript" src="game_of_life.levels.js"></script>
 		<script type="text/javascript" src="game_of_life.js"></script>
 	</head>
-	<body onload="load_level(1);">
+	<body onload="">
+
+
+		<img id=img1 src=index.jpeg />
+		<br><br>
+		<canvas width=967 style=border:1px id=canvas1></canvas>
+
 		<div id="game_panel" align="left">
 			<h1><a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Game of Life (click for more informations)</a> BETA</h1>
+			
+<textarea style="height:400px; width:1000px" id=js1>
+reset_cells('game')
+img = document.getElementById('img1')
+var canvas = document.getElementById('canvas1');
+var context = canvas.getContext('2d');
+context.drawImage(img, 0, 0);
+img.setAttribute('crossOrigin', '');
+var imgData = context.getImageData(0, 0, 200, 200);
+// invert colors
+var i;
+var j=0;
+for (i = 0; i < imgData.data.length; i += 4) {
+
+	console.log("hello "+i)
+
+		e=document.getElementById('game_td_'+ ++j); 
+		if(e == null){ console.log("lalal"); continue }
+	var summ=imgData.data[i] + imgData.data[i+1] + imgData.data[i+2];
+	if(summ >= 384 ) {
+		console.log("YAY "+summ)
+		switch_td_state( document.getElementById('game_td_'+j) )
+	} else {
+		console.log("NAY "+summ)
+	
+	}
+
+}
+
+</textarea>
+<button onclick="eval(document.getElementById('js1').value)">run</button>
+<button onclick="document.getElementById('img1').src='tor1.jpg'">hammer</button>
+
+
 			<br />
 			<!--<span style="margin: 10px;">THE LEVELS ARE JUST FOR TESTING. ONCE THEY ARE DONE THIS PICE OF SOFTWARE WILL LOOSE BETA STATE</span><br />
 			<br />-->
@@ -107,4 +147,5 @@
 			<small>Feel free to use any code from this game in any form, but mention my name in the sources and maybe somewhere more public.</small>
 		</div>
 	</body>
+		<script>didi1()</script>
 </html>

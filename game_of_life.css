@@ -12,19 +12,19 @@ h1 a {
 	color:            #a2a2a2;
 }
 .fields_game_img {
-	width:            10px;
-	height:           10px;
+	width:            4px;
+	height:           4px;
 	border-bottom:    1px solid black;
 	border-right:     1px solid black;
 }
-.fields_game_checked {
-	width:            10px;
-	height:           10px;
+.fgc {
+	width:            4px;
+	height:           4px;
 	background-color: #aa0000;
 }
-.fields_game_unchecked {
-	width:            10px;
-	height:           10px;
+.fgu {
+	width:            4px;
+	height:           4px;
 	background-color: #ffffff;
 }
 #game_panel {

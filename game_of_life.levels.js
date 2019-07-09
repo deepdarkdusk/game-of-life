@@ -1,9 +1,9 @@
 var game_levels = new Array(
 	new Array(
 		// width / height
-		new Array( 30, 30 ),
+		new Array( 200, 200 ),
 		// active cells
-		new Array( 404,405,434 ),
+		new Array( ),
 		// level rounds
 		5,
 		// allowed clicks

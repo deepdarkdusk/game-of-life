@@ -5,6 +5,65 @@ var game_field_height = 0;
 var game_timeout      = false;
 var game_active_level = false;
 
+function didi1(){
+	load_level(1)
+
+	img = document.getElementById('img1')
+	var canvas = document.getElementById('canvas1');
+	var context = canvas.getContext('2d');
+	context.drawImage(img, 0, 0);
+	img.setAttribute('crossOrigin', '');
+	
+	
+	
+	//console.log(context.getImageData(0, 0, 40, 40).data);
+	//var imgData = context.getImageData(0, 0, 200, 200);
+
+
+//	var i=0;
+//	var state=[]
+//	for(var index in state) { 
+//		++i;
+//		console.log(state[index],i,index); 
+//		if(state[index] == 0xf6 || state[index] == 0xfb || state[index] == 0xf9 || state[index] == 0xff ) {switch_td_state( document.getElementById('game_td_'+i) )}
+//	}
+	//img = document.getElementById('img1')
+	//var canvas = document.getElementById('canvas1');
+	//var context = canvas.getContext('2d');
+	//context.drawImage(img, 0, 0);
+	//	console.log(context.getImageData(10, 10, 40, 40).data);
+
+				var imgData = context.getImageData(0, 0, 20, 20);
+				// invert colors
+	var i;
+	var j=0;
+	for (i = 0; i < imgData.data.length; i += 4) {
+
+		console.log("hello "+i)
+
+			e=document.getElementById('game_td_'+ ++j); 
+			if(e == null){ console.log("lalal"); continue }
+		var summ=imgData.data[i] + imgData.data[i+1] + imgData.data[i+2];
+		if(summ >= 384 ) {
+			console.log("YAY "+summ)
+			switch_td_state( document.getElementById('game_td_'+j) )
+		} else {
+			console.log("NAY "+summ)
+		
+		}
+
+	}
+				context.putImageData(imgData, 10, 10);
+
+}
+function didi(){
+
+
+	
+	
+
+}
+
 // this function draws the control pannel
 function draw_panel( id ) {
 	var outer_div = document.createElement("div");
@@ -49,7 +108,7 @@ function draw_field( id, width, height ) {
 		for( var x = 0; x < width; x++ ) {
 			i++;
 			var td = document.createElement("td");
-			td.className    = "fields_game_unchecked";
+			td.className    = "fgu";
 			td.id           = id + "_td_" + i;
 			// td.title        = i;
 
@@ -73,7 +132,7 @@ function draw_field( id, width, height ) {
 }
 function switch_td_state( element, click ) {
 	// if riddle mode is active, we have to check if the player still has an placeable cell left
-	if( game_active_level !== false && click == true && element.className == "fields_game_unchecked" ) {
+	if( game_active_level !== false && click == true && element.className == "fgu" ) {
 		var clicks = document.getElementById('game_panel_clicks');
 		if( clicks.value > 0 ) {
 			clicks.value--; 
@@ -94,10 +153,10 @@ function switch_td_state( element, click ) {
 	}
 
 	// change cell status
-	if( element.className == "fields_game_checked" ) {
-		var _class = "fields_game_unchecked";
+	if( element.className == "fgc" ) {
+		var _class = "fgu";
 	} else {
-		var _class = "fields_game_checked";
+		var _class = "fgc";
 	}
 	element.className = _class;
 
@@ -153,13 +212,13 @@ function execute_step( id ) {
 		var connected = 0;
 
 		// checking an living cell
-		if( document.getElementById( id + "_td_" + i ).className == "fields_game_checked" ) {
+		if( document.getElementById( id + "_td_" + i ).className == "fgc" ) {
 			// check all 8 neighbors for active cells
 			for( var j = 0; j < 8; j++ ) {
 				if( 
 					neighbors[j] > 0 &&
 					neighbors[j] <= game_fields &&
-					document.getElementById( id + "_td_" + neighbors[j] ).className == "fields_game_checked"
+					document.getElementById( id + "_td_" + neighbors[j] ).className == "fgc"
 				) {
 					connected++;
 					
@@ -179,7 +238,7 @@ function execute_step( id ) {
 				if( 
 					neighbors[j] > 0 &&
 					neighbors[j] <= game_fields &&
-					document.getElementById( id + "_td_" + neighbors[j] ).className == "fields_game_checked"
+					document.getElementById( id + "_td_" + neighbors[j] ).className == "fgc"
 				) {
 					connected++;
 					
@@ -292,7 +351,7 @@ function randomize_cells(id) {
 // this function resets all cells to be inactive
 function reset_cells(id) {
 	for( var i = 1; i <= game_fields; i++ ) {	
-		document.getElementById( id +"_td_"+ i ).className = "fields_game_unchecked";
+		document.getElementById( id +"_td_"+ i ).className = "fgu";
 
 	}
 	
@@ -303,7 +362,7 @@ function reset_cells(id) {
 function get_living_cells(id) {
 	var count = 0;
 	for( var i = 1; i <= game_fields; i++ ) {	
-		if( document.getElementById( id +"_td_"+ i ).className == "fields_game_checked" ) {
+		if( document.getElementById( id +"_td_"+ i ).className == "fgc" ) {
 			count++;
 		}
 
@@ -316,7 +375,7 @@ function get_living_cell_coordinates() {
 	var count = 0;
 	var cells = new Array();
 	for( var i = 1; i <= game_fields; i++ ) {	
-		if( document.getElementById( "game_td_"+ i ).className == "fields_game_checked" ) {
+		if( document.getElementById( "game_td_"+ i ).className == "fgc" ) {
 			cells[count++] = i;
 		}
 
@@ -332,14 +391,13 @@ function load_level(level) {
 	// if the level is found, load it and apply it
 	if( game_levels[(level-1)] != undefined ) {
 		game_active_level = (level-1);
-
 		// resize playing field
 		var playing_field = draw_field("game", game_levels[game_active_level][0][0], game_levels[game_active_level][0][1]);
 		document.getElementById('game').appendChild( playing_field );
 
 		// activate cells
 		for( var i in game_levels[game_active_level][1] ) {
-			document.getElementById('game_td_' + game_levels[game_active_level][1][i] ).className = "fields_game_checked";
+			document.getElementById('game_td_' + game_levels[game_active_level][1][i] ).className = "fgc";
 
 		}
 
@@ -393,15 +451,15 @@ function switch_mode( element ) {
 	start_button.value = "start";
 	start_button.setAttribute( "onclick", "javascript: step_loop( 'game', document.getElementById('game_panel_timeout').value, document.getElementById('game_panel_rounds').value );")
 
-	if( element.value == "sandbox" ) {
+	if(true || element.value == "sandbox" ) {
 		element.value = "riddle";
 		document.getElementById('game_panel_menu_sandbox').style.display = 'inline';
 		document.getElementById('game_panel_menu_riddle').style.display  = 'none';
 		document.getElementById('game_panel_rounds').readOnly            = false;
 
 		alert( "Switched to Sandbox-Mode!" );
-
 	} else {
+didi();
 		element.value = "sandbox";
 
 		document.getElementById('game_panel_menu_sandbox').style.display = 'none';
